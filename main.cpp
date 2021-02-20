@@ -2,13 +2,10 @@
 #include "intervals.hpp"
 #include <fstream>
 #include <vector>
-#include <pthread.h>
 #include <omp.h>
 #include "math.h"
 #include "Chrono.hpp"
 #include "iostream"
-
-//pthread_mutex_t lMutex = PTHREAD_MUTEX_INITIALIZER;
 
 using namespace std;
 
@@ -71,12 +68,11 @@ int main(int argc, char * argv[])
                 prime[i][j] = false;
             }
         }
-        //pthread_t threads[nb_thread];
 
         struct arg_struct args[nb_thread];
         int i;
         
-        #pragma omp parallel shared(numbers, prime, tabsizes) private(i)
+        #pragma omp parallel shared(numbers, prime, tabsizes, args) private(i)
         {
             #pragma omp for schedule(static)
             for (i = 0; i<nb_thread; i++)
@@ -84,16 +80,10 @@ int main(int argc, char * argv[])
                 args[i].candidates = numbers[i];
                 args[i].truth_value = prime[i];
                 args[i].tab_size = tabsizes[i];
-                //pthread_create(&threads[i], NULL, thread_is_prime, (void *) &args[i]);
                 thread_is_prime(&args[i]);
             }
         }
-        
-        
-        //for (int i = 0; i<nb_thread; i++)
-        //{
-        //    pthread_join(threads[i], NULL);
-        //}
+
         chrono.pause();
 
         for (unsigned long long i = 0; i < size_of_part; i++)

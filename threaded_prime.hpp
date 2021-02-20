@@ -1,7 +1,6 @@
 #include <gmpxx.h>
 #include <stdint.h>
 #include <vector>
-#include <pthread.h>
 
 struct arg_struct{
     mpz_class *candidates;
