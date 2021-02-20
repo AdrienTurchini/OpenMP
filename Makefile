@@ -12,4 +12,4 @@ clean:
 
 main: main.cpp intervals.cpp threaded_prime.cpp
 	$(CXX) $(CXXFLAGS) -I$(GMPINC) -L$(GMPLIB) \
-		-o $@ $^ -lgmp -lgmpxx -lpthread
+		-o $@ $^ -lgmp -lgmpxx -lpthread -fopenmp
