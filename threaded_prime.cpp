@@ -8,14 +8,12 @@ void thread_is_prime_one_number(mpz_class candidate, bool *truth_value, int id)
     {
         if (mpz_probab_prime_p(candidate.get_mpz_t(), 40))
         {
-            //pthread_mutex_lock(lmutex);
             truth_value[id] = true;
-            //pthread_mutex_unlock(lmutex);
         }
     }
 }
 
-void *thread_is_prime(void *arguments)
+void thread_is_prime(void *arguments)
 {
     struct arg_struct *args = (struct arg_struct *)arguments;
     mpz_class *candidates = args -> candidates;
@@ -28,5 +26,5 @@ void *thread_is_prime(void *arguments)
         candidate = candidates[i];
         thread_is_prime_one_number(candidate, truth_value, i);
     }
-    pthread_exit(NULL);
+    //pthread_exit(NULL);
 }

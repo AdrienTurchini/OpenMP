@@ -10,4 +10,4 @@ struct arg_struct{
 };
 
 void thread_is_prime_one_number(mpz_class candidate, bool *truth_value, bool *tested, unsigned long long id);
-void *thread_is_prime(void *arguments);
+void thread_is_prime(void *arguments);
